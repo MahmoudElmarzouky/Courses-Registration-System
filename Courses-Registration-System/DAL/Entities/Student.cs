@@ -8,8 +8,7 @@
 		public string PhoneNumber { get; set; }
 		public DateTime BirthDate { get; set; }
 		public int Gender { get; set; }
-		public int CourseStudentId { get; set; }
-		public CourseStudent CourseStudent { get; set; }
+		public List<CourseStudent> CourseStudents { get; set; }
 
     }
 }
