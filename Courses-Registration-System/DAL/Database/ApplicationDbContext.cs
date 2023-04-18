@@ -5,6 +5,10 @@ namespace Courses_Registration_System.DAL.Database
 {
 	public class ApplicationDbContext:DbContext
 	{
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options):base(options)
+		{
+
+		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// Crate Relation between Course Date and Student 
