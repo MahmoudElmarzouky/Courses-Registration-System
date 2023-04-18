@@ -1,3 +1,6 @@
+using Courses_Registration_System.DAL.Database;
+using Microsoft.EntityFrameworkCore;
+
 namespace Courses_Registration_System
 {
 	public class Program
@@ -9,6 +12,12 @@ namespace Courses_Registration_System
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
+			// Add dependancy injection for connection string 
+			builder.Services.AddDbContextPool<ApplicationDbContext>
+			(options => options.UseSqlServer(
+				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
+				)
+				);
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
