@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="BL\Interface\Mapper\" />
+    <Folder Include="BL\Interface\Helper\" />
+    <Folder Include="BL\Repository\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
