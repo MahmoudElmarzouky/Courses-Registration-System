@@ -7,4 +7,8 @@
     <RootNamespace>Courses_Registration_System</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
