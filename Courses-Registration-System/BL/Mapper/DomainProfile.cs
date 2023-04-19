@@ -11,7 +11,7 @@ namespace Courses_Registration_System.BL.Mapper
 				.ForMember(
 					dest => dest.IconUrl,
 					src => src.MapFrom(src => src.IconName)
-				);
+				).ReverseMap();
 		}
 	}
 }
