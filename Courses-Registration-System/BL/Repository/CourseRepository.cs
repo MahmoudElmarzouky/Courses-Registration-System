@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Courses_Registration_System.BL.Helper;
 using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
@@ -20,7 +21,10 @@ namespace Courses_Registration_System.BL.Repository
         public void Add(CourseViewModel entity)
 		{
 			var courseMapped=mapper.Map<Course>(entity);
+			courseMapped.IconUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
+
 			dbContext.Add(courseMapped);
+			dbContext.SaveChanges();
 		}
 
 		public void Delete(int id)
@@ -35,8 +39,8 @@ namespace Courses_Registration_System.BL.Repository
 
 		public IQueryable<CourseViewModel> GetAll()
 		{
-			var courses = dbContext.Courses;
-			var coursesMapped=mapper.Map<List<CourseViewModel>>(courses.AsQueryable());
+			var courses = dbContext.Courses.ToList();
+			var coursesMapped=mapper.Map<List<CourseViewModel>>(courses);
 			return coursesMapped.AsQueryable();
 		}
 

@@ -16,5 +16,31 @@ namespace Courses_Registration_System.Controllers
 		{
 			return View(repository.GetAll());
 		}
-	}
+
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpPost]
+        public IActionResult Create(CourseViewModel course)
+        {
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					repository.Add(course);
+					return RedirectToAction("Index", "Course");
+				}
+				else
+				{
+					return View(course);
+                }
+            
+			}catch (Exception ex)
+			{
+                return View();
+            }
+        }
+    }
 }
