@@ -12,6 +12,10 @@ namespace Courses_Registration_System
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
+			// Add dependancy injection for Auto Mapper
+			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 			// Add dependancy injection for connection string 
 			builder.Services.AddDbContextPool<ApplicationDbContext>
 			(options => options.UseSqlServer(
