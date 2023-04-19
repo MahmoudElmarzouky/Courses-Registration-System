@@ -1,4 +1,8 @@
+using Courses_Registration_System.BL.Interface;
+using Courses_Registration_System.BL.Repository;
 using Courses_Registration_System.DAL.Database;
+using Courses_Registration_System.DAL.Entities;
+using Courses_Registration_System.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Courses_Registration_System
@@ -11,6 +15,12 @@ namespace Courses_Registration_System
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+
+			// Add dependancy injection for Auto Mapper
+			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+			// Add dependancy injection For repository 
+			builder.Services.AddScoped<IRepository<CourseViewModel>,CourseRepository>();
 
 			// Add dependancy injection for connection string 
 			builder.Services.AddDbContextPool<ApplicationDbContext>

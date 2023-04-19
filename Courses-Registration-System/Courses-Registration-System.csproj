@@ -8,10 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BL\Interface\Mapper\" />
-    <Folder Include="BL\Interface\Helper\" />
+    <Compile Remove="BL\Interface\Helper\**" />
+    <Compile Remove="BL\Interface\Mapper\**" />
+    <Content Remove="BL\Interface\Helper\**" />
+    <Content Remove="BL\Interface\Mapper\**" />
+    <EmbeddedResource Remove="BL\Interface\Helper\**" />
+    <EmbeddedResource Remove="BL\Interface\Mapper\**" />
+    <None Remove="BL\Interface\Helper\**" />
+    <None Remove="BL\Interface\Mapper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="BL\Repository\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,12 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.3.23174.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.3.23174.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.3.23174.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
   </ItemGroup>
 
 </Project>
