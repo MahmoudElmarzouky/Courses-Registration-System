@@ -1,5 +1,6 @@
 ﻿using Courses_Registration_System.DAL.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Courses_Registration_System.Models
 {
@@ -11,7 +12,7 @@ namespace Courses_Registration_System.Models
 		[Required(ErrorMessage = "Enter Course Name")]
 		public decimal CoursPrice { get; set; }
 		[Required(ErrorMessage = "Enter Course Name")]
-		public string IconName { get; set; }
-		public IFormFile IconUrl { get; set; }
+		public string IconUrl { get; set; }
+		public IFormFile IconFile { get; set; }
 	}
 }

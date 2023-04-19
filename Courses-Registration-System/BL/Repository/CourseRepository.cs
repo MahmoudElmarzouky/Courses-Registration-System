@@ -35,9 +35,9 @@ namespace Courses_Registration_System.BL.Repository
 
 		public IQueryable<CourseViewModel> GetAll()
 		{
-			var courses = dbContext.Courses.ToList();
-			var coursesMapped=mapper.Map<IQueryable<CourseViewModel>>(courses);
-			return coursesMapped;
+			var courses = dbContext.Courses;
+			var coursesMapped=mapper.Map<List<CourseViewModel>>(courses.AsQueryable());
+			return coursesMapped.AsQueryable();
 		}
 
 		public void Update(CourseViewModel entity)
