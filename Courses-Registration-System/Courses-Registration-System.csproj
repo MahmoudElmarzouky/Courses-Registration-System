@@ -8,8 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BL\Interface\Mapper\" />
-    <Folder Include="BL\Interface\Helper\" />
+    <Compile Remove="BL\Interface\Helper\**" />
+    <Compile Remove="BL\Interface\Mapper\**" />
+    <Content Remove="BL\Interface\Helper\**" />
+    <Content Remove="BL\Interface\Mapper\**" />
+    <EmbeddedResource Remove="BL\Interface\Helper\**" />
+    <EmbeddedResource Remove="BL\Interface\Mapper\**" />
+    <None Remove="BL\Interface\Helper\**" />
+    <None Remove="BL\Interface\Mapper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="BL\Repository\" />
   </ItemGroup>
 

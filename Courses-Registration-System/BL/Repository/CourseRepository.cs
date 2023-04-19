@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
+using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Courses_Registration_System.BL.Repository
 {
@@ -17,7 +19,8 @@ namespace Courses_Registration_System.BL.Repository
 		}
         public void Add(CourseViewModel entity)
 		{
-			
+			var courseMapped=mapper.Map<Course>(entity);
+			dbContext.Add(courseMapped);
 		}
 
 		public void Delete(int id)
@@ -32,7 +35,9 @@ namespace Courses_Registration_System.BL.Repository
 
 		public IQueryable<CourseViewModel> GetAll()
 		{
-			throw new NotImplementedException();
+			var courses = dbContext.Courses.ToList();
+			var coursesMapped=mapper.Map<IQueryable<CourseViewModel>>(courses);
+			return coursesMapped;
 		}
 
 		public void Update(CourseViewModel entity)
