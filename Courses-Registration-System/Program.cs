@@ -26,7 +26,7 @@ namespace Courses_Registration_System
 			builder.Services.AddDbContextPool<ApplicationDbContext>
 			(options => options.UseSqlServer(
 				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
-				)
+				,options => options.EnableRetryOnFailure())
 				);
 			var app = builder.Build();
 
