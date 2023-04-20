@@ -6,13 +6,14 @@ namespace Courses_Registration_System.Models
 {
 	public class CourseViewModel
 	{
-		public int CourseId { get; set; }
+		public int? CourseId { get; set; }
 		[Required(ErrorMessage = "Enter Course Name")]
 		public string CourseName { get; set; }
-		[Required(ErrorMessage = "Enter Course Name")]
+		[Required(ErrorMessage = "Enter Course Price")]
 		public decimal CoursPrice { get; set; }
-		[Required(ErrorMessage = "Enter Course Name")]
-		public string IconUrl { get; set; }
+       
 		public IFormFile IconFile { get; set; }
+		public string? IconUrl { get; set; }
+		
 	}
 }
