@@ -73,5 +73,31 @@ namespace Courses_Registration_System.Controllers
                 return View();
             }
         }
+        public IActionResult Delete(int id)
+        {
+            var course = repository.Get(id);
+            if (course == null)
+                return View();
+
+            return View(course);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(CourseViewModel course)
+        {
+            try
+            {
+                if (course.CourseId == null) 
+                    return View();
+                    int courseId = (int)course.CourseId ;
+                    if(course.CourseId!=null)
+                    repository.Delete(courseId);
+                    return RedirectToAction("Index", "Course");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
     }
 }

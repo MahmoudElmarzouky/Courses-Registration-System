@@ -30,7 +30,11 @@ namespace Courses_Registration_System.BL.Repository
 
 		public void Delete(int id)
 		{
-			throw new NotImplementedException();
+			var course = Get(id);
+			var courseMapped = mapper.Map<Course>(course);
+			UploadFileHelper.RemoveFile("Photos", courseMapped.IconUrl);
+			dbContext.Remove(courseMapped);
+			dbContext.SaveChanges();
 		}
 
 		public CourseViewModel Get(int id)
