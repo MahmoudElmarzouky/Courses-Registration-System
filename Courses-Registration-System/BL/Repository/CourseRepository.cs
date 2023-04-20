@@ -4,6 +4,7 @@ using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.Arm;
 
 namespace Courses_Registration_System.BL.Repository
@@ -34,8 +35,10 @@ namespace Courses_Registration_System.BL.Repository
 
 		public CourseViewModel Get(int id)
 		{
-			throw new NotImplementedException();
-		}
+			var course=dbContext.Courses.Where(course => course.CourseId == id).FirstOrDefault();
+            var coursesMapped = mapper.Map<CourseViewModel>(course);
+			return coursesMapped;
+        }
 
 		public IQueryable<CourseViewModel> GetAll()
 		{
@@ -46,7 +49,15 @@ namespace Courses_Registration_System.BL.Repository
 
 		public void Update(CourseViewModel entity)
 		{
-			throw new NotImplementedException();
-		}
+			
+            var courseMapped = mapper.Map<Course>(entity);
+			if (entity.IconFile != null)
+			{
+				UploadFileHelper.RemoveFile("Photos", entity.IconUrl);
+				courseMapped.IconUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
+			}
+            dbContext.Entry(courseMapped).State = EntityState.Modified;	
+			dbContext.SaveChanges();
+        }
 	}
 }
