@@ -40,7 +40,12 @@ namespace Courses_Registration_System.BL.Repository
 			return coursesMapped.AsQueryable();
 		}
 
-		public void Update(CourseViewModel entity)
+        public CourseViewModel Search(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(CourseViewModel entity)
 		{
 			throw new NotImplementedException();
 		}

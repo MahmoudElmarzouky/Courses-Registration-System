@@ -21,9 +21,11 @@ namespace Courses_Registration_System
 
 			// Add dependancy injection For repository 
 			builder.Services.AddScoped<IRepository<CourseViewModel>,CourseRepository>();
+            builder.Services.AddScoped<IRepository<InstuctorViewModel>, InstructorReository>();
 
-			// Add dependancy injection for connection string 
-			builder.Services.AddDbContextPool<ApplicationDbContext>
+
+            // Add dependancy injection for connection string 
+            builder.Services.AddDbContextPool<ApplicationDbContext>
 			(options => options.UseSqlServer(
 				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
 				)

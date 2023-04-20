@@ -6,6 +6,7 @@
 		 T Get(int id);
 		 void Add(T entity);
 		 void Delete(int id);
-		 void Update(T entity);	
-	}
+		 void Update(T entity);
+         T Search(object obj);
+    }
 }
