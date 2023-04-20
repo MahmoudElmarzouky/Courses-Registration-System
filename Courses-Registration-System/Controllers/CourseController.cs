@@ -83,15 +83,13 @@ namespace Courses_Registration_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(CourseViewModel course)
+        public IActionResult Delete(int id ,CourseViewModel course)
         {
             try
             {
-                if (course.CourseId == null) 
-                    return View();
-                    int courseId = (int)course.CourseId ;
-                    if(course.CourseId!=null)
-                    repository.Delete(courseId);
+                if (id!=null)
+                    repository.Delete(id);
+                
                     return RedirectToAction("Index", "Course");
             }
             catch (Exception ex)
