@@ -9,8 +9,7 @@ namespace Courses_Registration_System.BL.Mapper
 		public DomainProfile() {
 			CreateMap<CourseViewModel,Course>().ReverseMap();
             CreateMap<InstuctorViewModel,Instructor>().ReverseMap();
-            CreateMap<Instructor, InstuctorViewModel>().ReverseMap();
-
-        }
+            CreateMap<StudentViewModel, Student>().ReverseMap();
+		}
     }
 }

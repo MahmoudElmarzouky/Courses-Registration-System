@@ -16,15 +16,15 @@ namespace Courses_Registration_System
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
-			// Add dependancy injection for Auto Mapper
+			// Add dependency injection for Auto Mapper
 			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-			// Add dependancy injection For repository 
+			// Add dependency injection For repository 
 			builder.Services.AddScoped<IRepository<CourseViewModel>,CourseRepository>();
             builder.Services.AddScoped<IRepository<InstuctorViewModel>, InstructorReository>();
+			builder.Services.AddScoped<IRepository<StudentViewModel>, StudentRepository>();
 
-
-            // Add dependancy injection for connection string 
+            // Add dependency injection for connection string 
             builder.Services.AddDbContextPool<ApplicationDbContext>
 			(options => options.UseSqlServer(
 				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
