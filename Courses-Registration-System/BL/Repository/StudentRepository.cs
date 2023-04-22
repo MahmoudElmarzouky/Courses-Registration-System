@@ -36,9 +36,6 @@ public class StudentRepository: IRepository<StudentViewModel>
     {
         var student = _mapper.Map<Student>(studentViewModel);
         _dbContext.Set<Student>().Add(student);
-        
-        // TODO apply Unit of Work Design Pattern
-        _dbContext.SaveChanges();
     }
 
     public void Delete(int id)
@@ -47,16 +44,12 @@ public class StudentRepository: IRepository<StudentViewModel>
         if (Equals(null, studentViewModel)) return;
         var student = _mapper.Map<Student>(studentViewModel);
         _dbContext.Set<Student>().Remove(student);
-        // TODO apply Unit of Work Design Pattern
-        _dbContext.SaveChanges();
     }
 
     public void Update(StudentViewModel studentViewModel)
     {
         var student = _mapper.Map<Student>(studentViewModel);
         _dbContext.Set<Student>().Update(student);
-        // TODO apply Unit of Work Design Pattern
-        _dbContext.SaveChanges();
     }
 
     public StudentViewModel Search(object obj)
