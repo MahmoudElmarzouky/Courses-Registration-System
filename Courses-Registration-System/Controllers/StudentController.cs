@@ -6,18 +6,16 @@ namespace Courses_Registration_System.Controllers;
 
 public class StudentController: Controller
 {
-    private readonly IRepository<StudentViewModel> _studentRepository;
-    public StudentController(IRepository<StudentViewModel> studentRepository)
+    private readonly IUnitOfWork _unitOfWork;
+    public StudentController(IUnitOfWork unitOfWork)
     {
-        _studentRepository = studentRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
     {
-        return View(_studentRepository.GetAll());
+        return View(_unitOfWork.Students.GetAll());
     }
-
-    
     public IActionResult Create()
     {
         return View();
@@ -25,7 +23,8 @@ public class StudentController: Controller
     [HttpPost]
     public IActionResult Create(StudentViewModel model)
     {
-        _studentRepository.Add(model);
-        return View("Index");
+        _unitOfWork.Students.Add(model);
+        _unitOfWork.Complete();
+        return View("Index", _unitOfWork.Students.GetAll());
     }
 }
