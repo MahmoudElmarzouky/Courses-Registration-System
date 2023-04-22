@@ -87,9 +87,7 @@ namespace Courses_Registration_System.Controllers
         {
             try
             {
-                if (id!=null)
                     repository.Delete(id);
-                
                     return RedirectToAction("Index", "Course");
             }
             catch (Exception ex)
