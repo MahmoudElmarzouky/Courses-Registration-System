@@ -30,10 +30,10 @@ namespace Courses_Registration_System.BL.Repository
 
 		public void Delete(int id)
 		{
-			var course = Get(id);
-			var courseMapped = mapper.Map<Course>(course);
-			UploadFileHelper.RemoveFile("Photos", courseMapped.IconUrl);
-			dbContext.Remove(courseMapped);
+			var course = dbContext.Courses.AsNoTracking().FirstOrDefault(c => c.CourseId == id);
+			if (Equals(course, null)) return;
+			UploadFileHelper.RemoveFile("Photos", course.IconUrl);
+			dbContext.Remove(course);
 			dbContext.SaveChanges();
 		}
 
