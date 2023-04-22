@@ -2,33 +2,31 @@
 {
     public static class UploadFileHelper
     {
-        public static string SaveFile(IFormFile FileUrl, string FolderPath)
+        private static readonly string DirectoryPath = Directory.GetCurrentDirectory() + "/wwwroot/Files";
+        private static string _getFolderPath(string folderName)
         {
-            // Get Directory
-            string FilePath = Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderPath;
+            return Path.Combine(DirectoryPath, folderName);
+        }
+        public static string SaveFile(IFormFile file, string folderName)
+        {
+            var folderPath = _getFolderPath(folderName);
+            var fileName = Guid.NewGuid() + file.FileName;
+            var filePath = Path.Combine(folderPath, fileName);
 
-            // Get File Name
-            string FileName = Guid.NewGuid() + Path.GetFileName(FileUrl.FileName);
-
-            // Merge The Directory With File Name
-            string FinalPath = Path.Combine(FilePath, FileName);
-
-            // Save Your File As Stream "Data Overtime"
-            using (var Stream = new FileStream(FinalPath, FileMode.Create))
-            {
-                FileUrl.CopyTo(Stream);
-            }
-
-            return FileName;
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            
+            file.CopyTo(fileStream);
+            
+            return fileName;
         }
 
-        public static void RemoveFile(string FolderName, string RemovedFileName)
+        public static void RemoveFile(string folderName, string fileName)
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderName + RemovedFileName))
+            var filePath = Path.Combine(_getFolderPath(folderName), fileName);
+            if (File.Exists(filePath))
             {
-                File.Delete(Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderName + RemovedFileName);
+                File.Delete(filePath);
             }
-
         }
     }
 }
