@@ -4,6 +4,7 @@ namespace Courses_Registration_System.BL.Interface;
 
 public interface IUnitOfWork: IDisposable
 {
-    public IRepository<StudentViewModel> Students { get; }
+    public IStudent Students { get; }
+    public IRepository<CourseViewModel> Courses { get; }
     public void Complete();
 }

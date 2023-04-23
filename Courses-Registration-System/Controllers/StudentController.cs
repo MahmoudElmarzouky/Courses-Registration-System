@@ -27,4 +27,12 @@ public class StudentController: Controller
         _unitOfWork.Complete();
         return View("Index", _unitOfWork.Students.GetAll());
     }
+
+    public IActionResult MyCourses()
+    {
+        // TODO take the identity user Id and get Id of the user 
+        var id = 1;
+        var myCourses = _unitOfWork.Students.GetMyCourses(id);
+        return View(myCourses);
+    }
 }

@@ -1,0 +1,49 @@
+@using Microsoft.IdentityModel.Tokens
+@model IQueryable<MyCourseViewModel>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Course Name 
+        </th>
+        <th>
+            Course Price
+        </th>
+        <th>
+            Course Start Date 
+        </th>
+        <th>
+            Course End Date
+        </th>
+        <th>
+            Course Icon
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoursePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            @{
+                if (item.CourseIconPath.IsNullOrEmpty() == false)
+                {
+                    <td>
+                        <img alt ="courseIcon" src="~/Files/Photos/@item.CourseIconPath" width="80px" height="80px" /> 
+                    </td>
+                }
+            }
+        </tr>
+    }
+    </tbody>
+</table>
