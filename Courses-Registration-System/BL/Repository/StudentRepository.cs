@@ -3,10 +3,11 @@ using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Courses_Registration_System.BL.Repository;
 
-public class StudentRepository: IRepository<StudentViewModel>
+public class StudentRepository: IStudent
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -55,5 +56,32 @@ public class StudentRepository: IRepository<StudentViewModel>
     public StudentViewModel Search(object obj)
     {
         throw new NotImplementedException();
+    }
+
+    public IQueryable<MyCourseViewModel> GetMyCourses(int id)
+    {
+        var courses = _dbContext.Set<Student>().
+            Include(c => c.CourseStudents).
+            ThenInclude(c=>c.CourseDate)
+            .FirstOrDefault(student => student.StudentId == id)?.
+            CourseStudents.
+            Select(_convertToMyCourseModel);
+        
+        return courses.AsQueryable();
+    }
+
+    private MyCourseViewModel _convertToMyCourseModel(CourseStudent courseStudent)
+    {
+        var currentCourse = _dbContext.Set<Course>()
+            .FirstOrDefault(course => course.CourseId == courseStudent.CourseDate.CourseId);
+        return new MyCourseViewModel
+        {
+            CourseId = currentCourse.CourseId,
+            CourseName = currentCourse.CourseName,
+            CoursePrice = currentCourse.CoursPrice,
+            StartDate = courseStudent.CourseDate.StartDate,
+            EndDate = courseStudent.CourseDate.EndtDate,
+            CourseIconPath = currentCourse.IconUrl
+        };
     }
 }
