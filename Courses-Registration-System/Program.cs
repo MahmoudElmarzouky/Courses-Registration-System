@@ -15,6 +15,7 @@ namespace Courses_Registration_System
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
 			// Add dependency injection for Auto Mapper
 			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -30,6 +31,11 @@ namespace Courses_Registration_System
 				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
 				,options => options.EnableRetryOnFailure())
 				);
+
+            builder.Services.AddDefaultIdentity<AuthUser>
+	            (options => options.SignIn.RequireConfirmedAccount = false).
+	            AddEntityFrameworkStores<ApplicationDbContext>();
+            
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -42,15 +48,10 @@ namespace Courses_Registration_System
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-
 			app.UseRouting();
-
+			app.UseAuthentication();
 			app.UseAuthorization();
-
-			app.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
-
+			app.UseMvc(route => { route.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
 			app.Run();
 		}
 	}
