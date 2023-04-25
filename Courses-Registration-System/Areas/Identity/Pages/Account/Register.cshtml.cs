@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Courses_Registration_System.Controllers;
 using Courses_Registration_System.DAL.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -142,7 +143,8 @@ namespace Courses_Registration_System.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Create", "Student", new {userId});
+                        // return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

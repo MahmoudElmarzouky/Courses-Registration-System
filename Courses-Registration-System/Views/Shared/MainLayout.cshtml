@@ -78,6 +78,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">ADMINBSB - MATERIAL DESIGN</a>
+                <partial name="_LoginPartial"/>
             </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -274,7 +275,7 @@
                 <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
             </ul>
         </div>
-        <partial name="_LoginPartial"/>
+        
         </div>
     </nav>
     <!-- #Top Bar -->
@@ -322,38 +323,11 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a asp-controller="Course" asp-action="Index">Courses Card</a>
+                                <a asp-controller="Student" asp-action="AllCourses">All Courses</a>
+                                <a asp-controller="Student" asp-action="MyCourses">My Courses</a>
                             </li>
-                       
                         </ul>
                     </li>
-        
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
-                            <span>Istructors</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a asp-controller="Instructor" asp-action="Index">Instructor Card</a>
-                            </li>
-                           
-                        </ul>
-                    </li>
-                     <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
-                            <span>Students</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a asp-controller="Student" asp-action="Index">Students Card</a>
-                            </li>
-                       
-                        </ul>
-                    </li>
-
-
                 </ul>
             </div>
             <!-- #Menu -->

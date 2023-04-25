@@ -3,6 +3,7 @@ using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Courses_Registration_System.BL.Repository;
@@ -67,6 +68,13 @@ public class StudentRepository: IStudent
             CourseStudents.
             Select(_convertToMyCourseModel);
         
+        return courses.AsQueryable();
+    }
+
+    public IQueryable<MyCourseViewModel> GetAllCourses()
+    {
+        var courses = _dbContext.Set<CourseStudent>().
+            Select(_convertToMyCourseModel);
         return courses.AsQueryable();
     }
 

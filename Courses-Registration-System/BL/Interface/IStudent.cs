@@ -5,4 +5,5 @@ namespace Courses_Registration_System.BL.Interface;
 public interface IStudent: IRepository<StudentViewModel>
 {
     public IQueryable<MyCourseViewModel> GetMyCourses(int id);
+    IQueryable<MyCourseViewModel> GetAllCourses();
 }

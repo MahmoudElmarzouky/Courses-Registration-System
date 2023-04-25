@@ -2,7 +2,7 @@ namespace Courses_Registration_System.Models;
 
 public class StudentViewModel
 {
-    public int UserIdentityId { get; set; }
+    public string UserIdentityId { get; set; }
     public int StudentId { get; set; }
     public string StudentName { get; set; } = string.Empty;
     public string StudentEmail { get; set; } = string.Empty;
