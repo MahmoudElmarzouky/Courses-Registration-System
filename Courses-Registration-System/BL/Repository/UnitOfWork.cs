@@ -9,7 +9,7 @@ public class UnitOfWork: IUnitOfWork
 {
     private readonly ApplicationDbContext _dbContext;
     public IStudent Students { get; }
-    public IRepository<CourseViewModel> Courses { get; }
+    public ICourse Courses { get; }
     public UnitOfWork(ApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;

@@ -37,9 +37,9 @@
                     <img src="~/Files/Photos/@item.IconUrl" width="80px" height="80px" /> 
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+                <a asp-action="AddToStudent" asp-route-id="@item.CourseId">AddCourse</a> |
+                <a asp-action="PutInSchedule" asp-route-id="@item.CourseId">Put Course In a Schedule</a>
             </td>
         </tr>
 }

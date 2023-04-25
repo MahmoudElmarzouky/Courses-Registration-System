@@ -74,8 +74,21 @@ public class StudentRepository: IStudent
     public IQueryable<MyCourseViewModel> GetAllCourses()
     {
         var courses = _dbContext.Set<CourseStudent>().
-            Select(_convertToMyCourseModel);
+            Select(_convertToMyCourseModel)
+            .OrderBy(course => course.StartDate).
+            ThenBy(course => course.EndDate);
         return courses.AsQueryable();
+    }
+
+    public void AddCourse(int studentId, int id)
+    {
+        var studentCourse = new CourseStudent
+        {
+            StudentId = studentId,
+            CourseDateId = id
+        };
+        var student = _dbContext.Set<Student>().FirstOrDefault(student => student.StudentId == studentId);
+        student?.CourseStudents.Add(studentCourse);
     }
 
     private MyCourseViewModel _convertToMyCourseModel(CourseStudent courseStudent)
