@@ -9,7 +9,7 @@ using System.Runtime.Intrinsics.Arm;
 
 namespace Courses_Registration_System.BL.Repository
 {
-	public class CourseRepository : IRepository<CourseViewModel>
+	public class CourseRepository : ICourse
 	{
 		private readonly ApplicationDbContext dbContext;
 		private readonly IMapper mapper;
@@ -54,6 +54,17 @@ namespace Courses_Registration_System.BL.Repository
         public CourseViewModel Search(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddSchedule(int courseId, DateTime startTime, DateTime endTime)
+        {
+	        var course = dbContext.Courses.FirstOrDefault(course => course.CourseId == courseId);
+	        course.CourseDates.Add(new CourseDate
+	        {
+		        CourseId = courseId,
+		        StartDate = startTime,
+		        EndtDate = endTime
+	        });
         }
 
         public void Update(CourseViewModel entity)

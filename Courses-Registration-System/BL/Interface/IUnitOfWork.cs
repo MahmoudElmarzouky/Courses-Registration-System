@@ -5,6 +5,6 @@ namespace Courses_Registration_System.BL.Interface;
 public interface IUnitOfWork: IDisposable
 {
     public IStudent Students { get; }
-    public IRepository<CourseViewModel> Courses { get; }
+    public ICourse Courses { get; }
     public void Complete();
 }

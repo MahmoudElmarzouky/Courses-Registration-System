@@ -11,12 +11,15 @@ public class StudentController: Controller
 {
     private readonly IUnitOfWork _unitOfWork;
     private string? _userIdentityId;
+    private int? _studentId;
     public StudentController(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
     {
         _unitOfWork = unitOfWork;
         _userIdentityId = httpContextAccessor.HttpContext?.User.
             FindFirst(ClaimTypes.NameIdentifier)
             ?.Value;
+        _studentId = _unitOfWork.Students.GetAll().
+            FirstOrDefault(student => student.UserIdentityId == _userIdentityId)?.StudentId;
     }
 
     public IActionResult Index()
@@ -38,11 +41,9 @@ public class StudentController: Controller
 
     public IActionResult MyCourses()
     {
-        var id = _unitOfWork.Students.GetAll().
-            FirstOrDefault(student => student.UserIdentityId == _userIdentityId)?.StudentId;
-        if (id == null) 
+        if (_studentId == null) 
             return View();
-        var myCourses = _unitOfWork.Students.GetMyCourses((int)id);
+        var myCourses = _unitOfWork.Students.GetMyCourses((int)_studentId);
         return View(myCourses);
     }
     public IActionResult AllCourses()

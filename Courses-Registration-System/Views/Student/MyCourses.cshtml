@@ -4,37 +4,25 @@
     <thead>
     <tr>
         <th>
-            Course Name 
+            Course Icon
+        </th>
+        <th>
+            Course Name
         </th>
         <th>
             Course Price
         </th>
         <th>
-            Course Start Date 
+            Start In
         </th>
         <th>
-            Course End Date
-        </th>
-        <th>
-            Course Icon
+            End In
         </th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoursePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
             @{
                 if (item.CourseIconPath.IsNullOrEmpty() == false)
                 {
@@ -42,7 +30,25 @@
                         <img alt ="courseIcon" src="~/Files/Photos/@item.CourseIconPath" width="80px" height="80px" /> 
                     </td>
                 }
+                else
+                {
+                    <td>
+                        <img alt ="courseIcon" src="~/Files/Photos/defualtIcon.png" width="80px" height="80px" /> 
+                    </td>
+                }
             }
+            <td>
+                    @item.CourseName
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoursePrice)
+            </td>
+            <td>
+                @item.StartDate.ToString("dddd, dd MMMM yyyy")
+            </td>
+            <td>
+                @item.EndDate.ToString("dddd, dd MMMM yyyy"))
+            </td>
         </tr>
     }
     </tbody>
