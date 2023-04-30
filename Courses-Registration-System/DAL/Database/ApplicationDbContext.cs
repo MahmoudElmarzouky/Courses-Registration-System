@@ -1,9 +1,10 @@
 ﻿using Courses_Registration_System.DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Courses_Registration_System.DAL.Database
 {
-	public class ApplicationDbContext:DbContext
+	public class ApplicationDbContext: IdentityDbContext<AuthUser>
 	{
 		public ApplicationDbContext(DbContextOptions options): base(options)
 		{
@@ -11,6 +12,8 @@ namespace Courses_Registration_System.DAL.Database
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+			
 			// Crate Relation between Course Date and Student 
 
 			// Create Composite Primary Key  for talble  CourseStudent 

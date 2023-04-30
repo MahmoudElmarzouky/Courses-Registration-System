@@ -9,7 +9,7 @@ using System.Runtime.Intrinsics.Arm;
 
 namespace Courses_Registration_System.BL.Repository
 {
-	public class CourseRepository : IRepository<CourseViewModel>
+	public class CourseRepository : ICourse
 	{
 		private readonly ApplicationDbContext dbContext;
 		private readonly IMapper mapper;
@@ -30,10 +30,10 @@ namespace Courses_Registration_System.BL.Repository
 
 		public void Delete(int id)
 		{
-			var course = Get(id);
-			var courseMapped = mapper.Map<Course>(course);
-			UploadFileHelper.RemoveFile("Photos", courseMapped.IconUrl);
-			dbContext.Remove(courseMapped);
+			var course = dbContext.Courses.AsNoTracking().FirstOrDefault(c => c.CourseId == id);
+			if (Equals(course, null)) return;
+			UploadFileHelper.RemoveFile("Photos", course.IconUrl);
+			dbContext.Remove(course);
 			dbContext.SaveChanges();
 		}
 
@@ -54,6 +54,17 @@ namespace Courses_Registration_System.BL.Repository
         public CourseViewModel Search(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddSchedule(int courseId, DateTime startTime, DateTime endTime)
+        {
+	        var course = dbContext.Courses.FirstOrDefault(course => course.CourseId == courseId);
+	        course.CourseDates.Add(new CourseDate
+	        {
+		        CourseId = courseId,
+		        StartDate = startTime,
+		        EndtDate = endTime
+	        });
         }
 
         public void Update(CourseViewModel entity)

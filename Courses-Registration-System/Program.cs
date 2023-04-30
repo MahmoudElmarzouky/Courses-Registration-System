@@ -15,21 +15,27 @@ namespace Courses_Registration_System
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
-			// Add dependancy injection for Auto Mapper
+			// Add dependency injection for Auto Mapper
 			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-			// Add dependancy injection For repository 
+			// Add dependency injection For repository 
 			builder.Services.AddScoped<IRepository<CourseViewModel>,CourseRepository>();
             builder.Services.AddScoped<IRepository<InstuctorViewModel>, InstructorReository>();
-
-
-            // Add dependancy injection for connection string 
+			//builder.Services.AddScoped<IRepository<StudentViewModel>, StudentRepository>();
+			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            // Add dependency injection for connection string 
             builder.Services.AddDbContextPool<ApplicationDbContext>
 			(options => options.UseSqlServer(
 				builder.Configuration.GetConnectionString("CoursesRegistrationDbConnection")
 				,options => options.EnableRetryOnFailure())
 				);
+
+            builder.Services.AddDefaultIdentity<AuthUser>
+	            (options => options.SignIn.RequireConfirmedAccount = false).
+	            AddEntityFrameworkStores<ApplicationDbContext>();
+            
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -42,15 +48,10 @@ namespace Courses_Registration_System
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-
 			app.UseRouting();
-
+			app.UseAuthentication();
 			app.UseAuthorization();
-
-			app.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
-
+			app.UseMvc(route => { route.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
 			app.Run();
 		}
 	}
