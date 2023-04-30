@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Courses_Registration_System.BL.Helper;
 using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
@@ -23,6 +24,8 @@ namespace Courses_Registration_System.BL.Repository
         {
 
             var instuctorMapped = mapper.Map<Instructor>(entity);
+            instuctorMapped.PhotoUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
+
             dbContext.Instructors.Add(instuctorMapped);
             dbContext.SaveChanges();
         }
@@ -30,6 +33,8 @@ namespace Courses_Registration_System.BL.Repository
         public void Delete(int id)
         {
             var inst = dbContext.Find<Instructor>(id);
+            UploadFileHelper.RemoveFile("Photos", inst.PhotoUrl);
+
             dbContext.Instructors.Remove(inst);
          dbContext.SaveChanges();
 
@@ -63,6 +68,12 @@ namespace Courses_Registration_System.BL.Repository
         {
             // Mapping
             var data = mapper.Map<Instructor>(entity);
+
+            if (entity.IconFile != null)
+            {
+                UploadFileHelper.RemoveFile("Photos", entity.PhotoUrl);
+                data.PhotoUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
+            }
             dbContext.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
             dbContext.SaveChanges();
