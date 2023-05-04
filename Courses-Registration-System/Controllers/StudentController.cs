@@ -48,7 +48,7 @@ public class StudentController: Controller
     }
     public IActionResult AllCourses()
     {
-        throw new NotImplementedException();
+   //  throw new NotImplementedException();
         var allCourses = _unitOfWork.Students.GetAllCourses();
         return View("MyCourses", allCourses);
     }

@@ -16,7 +16,7 @@ namespace Courses_Registration_System
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
-
+		   
 			// Add dependency injection for Auto Mapper
 			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
