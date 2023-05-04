@@ -1,12 +1,11 @@
-﻿using System.Security.Claims;
-using Courses_Registration_System.BL.Interface;
-using Courses_Registration_System.DAL.Entities;
+﻿using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Courses_Registration_System.Controllers
 {
-	public class CourseController : Controller
+    public class CourseController : Controller
 	{
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly IUnitOfWork _unitOfWork;
