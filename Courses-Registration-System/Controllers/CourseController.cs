@@ -40,7 +40,8 @@ namespace Courses_Registration_System.Controllers
 				if (ModelState.IsValid)
 				{
 					_unitOfWork.Courses.Add(course);
-					return RedirectToAction("Index", "Course");
+                    _unitOfWork.Complete();
+                    return RedirectToAction("Index", "Course");
 				}
 				else
 				{
@@ -70,6 +71,7 @@ namespace Courses_Registration_System.Controllers
                 if (ModelState.IsValid)
                 {
                     _unitOfWork.Courses.Update(course);
+                    _unitOfWork.Complete();
                     return RedirectToAction("Index", "Course");
                 }
                 else
@@ -98,7 +100,8 @@ namespace Courses_Registration_System.Controllers
             try
             {
                     _unitOfWork.Courses.Delete(id);
-                    return RedirectToAction("Index", "Course");
+                    _unitOfWork.Complete();
+                return RedirectToAction("Index", "Course");
             }
             catch (Exception ex)
             {
@@ -115,19 +118,6 @@ namespace Courses_Registration_System.Controllers
 	        return View(course);
         }
 
-        [HttpPost]
-        public IActionResult Details(int id ,CourseViewModel course)
-        {
-	        try
-	        {
-		        _unitOfWork.Courses.Delete(id);
-		        return RedirectToAction("Index", "Course");
-	        }
-	        catch (Exception ex)
-	        {
-		        return View();
-	        }
-        }
         
         // TODO Course AddToStudent
         public IActionResult AddToStudent(int id)
@@ -148,12 +138,15 @@ namespace Courses_Registration_System.Controllers
         [HttpPost]
         public IActionResult PutInSchedule(CourseScheduleInputModel model)
         {
-	        // TODO add the course to Schedule 
-	        
-	        _unitOfWork.Courses.AddSchedule(model.Id, model.StartTime,model.EndTime);
+	        _unitOfWork.Courses.AddSchedule(model);
 	        _unitOfWork.Complete();
 	        return RedirectToAction("Index", _unitOfWork.Courses.GetAll());
         }
-        
-	}
+      
+        public IActionResult ActiveCourses()
+        {
+            return View(_unitOfWork.Courses.ActiveCourses());
+        }
+
+     }
 }

@@ -56,15 +56,17 @@ namespace Courses_Registration_System.BL.Repository
             throw new NotImplementedException();
         }
 
-        public void AddSchedule(int courseId, DateTime startTime, DateTime endTime)
+        public void AddSchedule(CourseScheduleInputModel model)
         {
-	        var course = dbContext.Courses.FirstOrDefault(course => course.CourseId == courseId);
-	        course.CourseDates.Add(new CourseDate
-	        {
-		        CourseId = courseId,
-		        StartDate = startTime,
-		        EndtDate = endTime
-	        });
+			var course = dbContext.Courses.FirstOrDefault(course => course.CourseId == model.Id);
+
+			 if (course == null) return;
+              CourseDate activeCourse = new CourseDate { 
+			  StartDate=model.StartTime,
+			  EndtDate=model.EndTime,
+              CourseId = course.CourseId
+              };
+			dbContext.Add(activeCourse); 
         }
 
         public void Update(CourseViewModel entity)
@@ -79,5 +81,21 @@ namespace Courses_Registration_System.BL.Repository
             dbContext.Entry(courseMapped).State = EntityState.Modified;	
 			dbContext.SaveChanges();
         }
-	}
+        public IQueryable<CourseWithScheduleViewModel> ActiveCourses()
+        {
+			var activecourses = dbContext.CourseDates.Where(course => course.EndtDate >DateTime.Now)
+				.Include(course=>course.Course).Select(
+				courses=> new CourseWithScheduleViewModel
+                {
+                   CourseId = courses.CourseId,
+				   CourseName=courses.Course.CourseName,
+				   CoursPrice=courses.Course.CoursPrice,
+				   CourseIcon=courses.Course.IconUrl,
+				   StartTime=courses.StartDate,
+				   EndTime=courses.EndtDate
+				}
+				);
+            return activecourses.AsQueryable();
+        }
+    }
 }
