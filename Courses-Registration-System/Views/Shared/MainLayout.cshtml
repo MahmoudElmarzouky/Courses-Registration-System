@@ -300,8 +300,6 @@
                             <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
                             <li role="seperator" class="divider"></li>
                             <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" ><i class="material-icons">input</i>Sign Out</a></li>
-@*                            <li><i class="material-icons" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"></i>Sign Out</li>
-*@
                             
                         </ul>
                     </div>
@@ -328,6 +326,16 @@
                             <li>
                                 <a asp-controller="Student" asp-action="AllCourses">All Courses</a>
                                 <a asp-controller="Student" asp-action="MyCourses">My Courses</a>
+                            </li>
+                        </ul>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Instuctor</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a asp-controller="InstuctorController" asp-action="AllCourses">All Courses</a>
+                                <a asp-controller="InstuctorController" asp-action="MyCourses">My Courses</a>
                             </li>
                         </ul>
                     </li>
