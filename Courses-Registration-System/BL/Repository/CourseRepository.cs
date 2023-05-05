@@ -66,7 +66,7 @@ namespace Courses_Registration_System.BL.Repository
 			  EndtDate=model.EndTime,
               CourseId = course.CourseId
               };
-			dbContext.Add(activeCourse);
+			dbContext.Add(activeCourse); 
         }
 
         public void Update(CourseViewModel entity)
