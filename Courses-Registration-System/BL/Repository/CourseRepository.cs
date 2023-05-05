@@ -62,11 +62,11 @@ namespace Courses_Registration_System.BL.Repository
 
 			 if (course == null) return;
               CourseDate activeCourse = new CourseDate { 
-			  CourseId=course.CourseId,
 			  StartDate=model.StartTime,
-			  EndtDate=model.EndTime
-			};
-			course.CourseDates.Add(activeCourse);
+			  EndtDate=model.EndTime,
+              CourseId = course.CourseId
+              };
+			dbContext.Add(activeCourse);
         }
 
         public void Update(CourseViewModel entity)
