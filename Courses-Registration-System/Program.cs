@@ -3,6 +3,7 @@ using Courses_Registration_System.BL.Repository;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 
 namespace Courses_Registration_System
@@ -35,8 +36,20 @@ namespace Courses_Registration_System
             builder.Services.AddDefaultIdentity<AuthUser>
 	            (options => options.SignIn.RequireConfirmedAccount = false).
 	            AddEntityFrameworkStores<ApplicationDbContext>();
-            
-			var app = builder.Build();
+			builder.Services.AddAuthentication()
+					.AddGoogle(options =>
+					{
+						IConfigurationSection googleAuthSection = builder.Configuration.GetSection("Authentication:Google");
+						options.ClientId = googleAuthSection["ClientId"];
+						options.ClientSecret = googleAuthSection["ClientSecret"];
+					})
+					.AddFacebook(options =>
+                    {
+                        IConfigurationSection facebookAuthSection = builder.Configuration.GetSection("Authentication:Facebook");
+                      options.AppId = facebookAuthSection["AppId"];
+                      options.AppSecret = facebookAuthSection["AppSecret"];
+                   });
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
