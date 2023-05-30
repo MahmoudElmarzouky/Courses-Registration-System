@@ -4,6 +4,7 @@ using Courses_Registration_System.BL.Interface;
 using Courses_Registration_System.DAL.Database;
 using Courses_Registration_System.DAL.Entities;
 using Courses_Registration_System.Models;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 
 namespace Courses_Registration_System.BL.Repository
@@ -25,7 +26,7 @@ namespace Courses_Registration_System.BL.Repository
 
             var instuctorMapped = mapper.Map<Instructor>(entity);
             instuctorMapped.PhotoUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
-
+          
             dbContext.Instructors.Add(instuctorMapped);
             dbContext.SaveChanges();
         }
@@ -34,7 +35,7 @@ namespace Courses_Registration_System.BL.Repository
         {
             var inst = dbContext.Find<Instructor>(id);
             UploadFileHelper.RemoveFile("Photos", inst.PhotoUrl);
-
+              
             dbContext.Instructors.Remove(inst);
          dbContext.SaveChanges();
 
@@ -42,14 +43,11 @@ namespace Courses_Registration_System.BL.Repository
 
         public InstuctorViewModel Get(int id)
         {
-            var data = dbContext.Instructors.Where(a => a.InstructorId == id).ToList();
+            var data = dbContext.Set<Instructor>().FirstOrDefault(a => a.InstructorId == id);
+            if (Equals(null, data)) return null;
+            return mapper.Map<InstuctorViewModel>(data);
 
-            var instuctorMapped = mapper.Map<InstuctorViewModel>(data);
-
-            return instuctorMapped;
-
-            
-                                            
+   
         }
 
         public IQueryable<InstuctorViewModel> GetAll()
@@ -66,6 +64,7 @@ namespace Courses_Registration_System.BL.Repository
 
         public void Update(InstuctorViewModel entity)
         {
+
             // Mapping
             var data = mapper.Map<Instructor>(entity);
 
@@ -74,7 +73,7 @@ namespace Courses_Registration_System.BL.Repository
                 UploadFileHelper.RemoveFile("Photos", entity.PhotoUrl);
                 data.PhotoUrl = UploadFileHelper.SaveFile(entity.IconFile, "Photos");
             }
-            dbContext.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            dbContext.Set<Instructor>().Update(data);
 
             dbContext.SaveChanges();
         }

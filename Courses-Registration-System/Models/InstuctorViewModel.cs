@@ -4,7 +4,7 @@ namespace Courses_Registration_System.Models
 {
     public class InstuctorViewModel
     {
-        public int? InstructorId { get; set; }
+        public int InstructorId { get; set; }
         [Required(ErrorMessage = "Enter Instructor Name"),MinLength(20)]
         public string InstructorName { get; set; }
         [Required(ErrorMessage = "The Email field is required.")]
@@ -17,10 +17,9 @@ namespace Courses_Registration_System.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime BirthDate { get; set; }
 
-        [Required(ErrorMessage = " Gender is required.")]
-        public bool Gender { get; set; }
-        public string PhotoUrl { get; set; }
-        public IFormFile IconFile { get; set; }
+        public bool Gender { get; set; } =false;
+        public string? PhotoUrl { get; set; }
+        public IFormFile? IconFile { get; set; }
 
     }
 }

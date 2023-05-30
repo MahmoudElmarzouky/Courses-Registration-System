@@ -1,62 +1,82 @@
-﻿@model Courses_Registration_System.Models.InstuctorViewModel
+﻿@model InstuctorViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Instuctor Delete";
 }
 
-<h1>Delete</h1>
+<a asp-controller="Instuctor" asp-action="Index" class="btn btn-primary">Back To Instuctor</a>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>InstuctorViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InstructorId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InstructorId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InstructorName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InstructorName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InstructorEmail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InstructorEmail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoUrl)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+<style>
+    /* Custom styles for checkboxes */
+    .checkbox-container {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .checkbox-label {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    .checkbox-input {
+        vertical-align: middle;
+    }
+
+        .checkbox-input:checked + .checkbox-label {
+            color: red;
+        }
+</style>
+<h2>Delete Instuctor</h2>
+
+
+
+<form asp-controller="Instuctor" asp-action="Delete" method="post" class="form-group">
+    <input type="hidden" asp-for="InstructorId" />
+
+    <label asp-for="InstructorName">Instuctor Name</label>
+    <input type="text" asp-for="InstructorName" class="form-control" readonly />
+    <br /><br />
+
+    <label asp-for="InstructorEmail">Instuctor Email</label>
+    <input type="email" asp-for="InstructorEmail" class="form-control" readonly />
+    <br /><br />
+
+    <label asp-for="PhoneNumber">Instuctor Phone</label>
+    <input type="text" asp-for="PhoneNumber" class="form-control" readonly />
+    <br /><br />
+
+    <label asp-for="BirthDate">Birth Date</label>
+    <input type="date" asp-for="BirthDate" class="form-control" readonly />
+    <br /><br 
+
+     <div class="custom-control custom-checkbox">
+        <input type="checkbox" asp-for="Gender" class="custom-control-input" readonly />
+        <label class="custom-control-label" asp-for="Gender">Is Male : ? </label>
+    </div>
+    <span class="text-danger" asp-validation-for="Gender"></span>
+
+    <br /><br />
+
+    @if (Model.PhotoUrl != null)
+    {
+        <img src="~/Files/Photos/@Model.PhotoUrl" width="80px" height="80px" />
+    }
+    <input type="hidden" asp-for="IconFile" class="form-control" />
+    <br /><br />
+
+
+   
+   
+
+    <br />
+    <center>
+        <input type="submit" value="Delete" class="btn btn-primary" />
+    </center>
+
+</form>
+
+<script src="~/jquery/jquery.min.js"></script>
+<script src="~/jquery-validate/jquery.validate.js"></script>
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

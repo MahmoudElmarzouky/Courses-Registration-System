@@ -1,60 +1,107 @@
-﻿@model Courses_Registration_System.Models.InstuctorViewModel
-
+﻿@model InstuctorViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewBag.Title = "Edit Instuctor";
 }
 
-<h1>Edit</h1>
+<a asp-controller="Instuctor" asp-action="Index" class="btn btn-primary">Back To Instuctor</a>
 
-<h4>InstuctorViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="InstructorId" class="control-label"></label>
-                <input asp-for="InstructorId" class="form-control" />
-                <span asp-validation-for="InstructorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InstructorName" class="control-label"></label>
-                <input asp-for="InstructorName" class="form-control" />
-                <span asp-validation-for="InstructorName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InstructorEmail" class="control-label"></label>
-                <input asp-for="InstructorEmail" class="form-control" />
-                <span asp-validation-for="InstructorEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Gender" /> @Html.DisplayNameFor(model => model.Gender)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhotoUrl" class="control-label"></label>
-                <input asp-for="PhotoUrl" class="form-control" />
-                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+<style>
+    /* Custom styles for checkboxes */
+    .checkbox-container {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .checkbox-label {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    .checkbox-input {
+        vertical-align: middle;
+    }
+
+        .checkbox-input:checked + .checkbox-label {
+            color: red;
+        }
+</style>
+<h2>Edit Instuctor</h2>
+
+
+<form asp-controller="Instuctor" asp-action="Edit" method="post" enctype="multipart/form-data" class="form-group">
+                <input type="hidden" asp-for="InstructorId" />
+                <input type="hidden" asp-for="PhotoUrl" />
+
+    <label asp-for="InstructorName">Instuctor Name</label>
+    <input type="text" asp-for="InstructorName" class="form-control" />
+    <span class="text-danger" asp-validation-for="InstructorName"></span>
+    <br /><br />
+
+    <label asp-for="InstructorEmail">Instuctor Email</label>
+    <input type="email" asp-for="InstructorEmail" class="form-control" />
+    <span class="text-danger" asp-validation-for="InstructorEmail"></span>
+    <br /><br />
+
+
+    <label asp-for="PhoneNumber">Instuctor Phone</label>
+    <input type="text" asp-for="PhoneNumber" class="form-control" />
+    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+    <br /><br />
+
+
+    <label asp-for="BirthDate">Birth Date</label>
+    <input type="date" asp-for="BirthDate" class="form-control" />
+    <span class="text-danger" asp-validation-for="BirthDate"></span>
+    <br /><br />
+
+
+
+
+   
+    <br /><br />
+
+
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" asp-for="Gender" class="custom-control-input">
+
+        <label class="custom-control-label" asp-for="Gender">Is Male : ? </label>
+        <br /><br />
+
     </div>
-</div>
+    <span class="text-danger" asp-validation-for="Gender"></span>
+
+        <br /><br />
+
+
+
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
+        <input asp-for="IconFile" type="file" name="IconFile" accept="image/"  class="form-control" />
+        <label asp-for="IconFile">Upload Photo</label>
+
+
 </div>
+
+
+@*    <img src="~/Files/Photos/@Model.PhotoUrl" style="width:120px" class="img-thumbnail" />
+*@
+    <br /><br />
+
+
+
+
+
+    <br />
+    <center>
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </center>
+
+</form>
+
+<script src="~/jquery/jquery.min.js"></script>
+<script src="~/jquery-validate/jquery.validate.js"></script>
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 

@@ -1,71 +1,76 @@
-﻿@model IEnumerable<Courses_Registration_System.Models.InstuctorViewModel>
+﻿@model IQueryable<Courses_Registration_System.Models.InstuctorViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Instuctor";
 }
 
-<h1>Index</h1>
+<h1>All Instuctor</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button asp-action="Create" asp-controller="Instuctor">Create New</button>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.InstructorId)
+                 Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InstructorName)
+                 Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InstructorEmail)
+                 Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                BirthDate
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+
+                Gender
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+
+                Image
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhotoUrl)
-            </th>
-            <th></th>
+            <th class="text-center">Edit</th>
+            <th class="text-center">Delete</th>
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InstructorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InstructorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InstructorEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhotoUrl)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstructorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstructorEmail)
+                </td>  
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td> 
+                <td>
+                   @(@item.Gender ? "Male" : "Female")
+                </td>
+
+                <td>
+                    <img src="~/Files/Photos/@item.PhotoUrl" width="80px" height="80px" />
+                </td>
+
+                <td><a  asp-action="Edit" asp-route-id="@item.InstructorId" class="btn btn-success">Edit</a></td>
+                <td><a  asp-action="Delete" asp-route-id="@item.InstructorId" class="btn btn-success">Delete</a></td>
+
+               @* <td>
+                    <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
+                    <a asp-action="AddToStudent" asp-route-id="@item.CourseId">AddCourse</a> |
+                    <a asp-action="PutInSchedule" asp-route-id="@item.CourseId">Put Course In a Schedule</a>
+                </td>*@
+            </tr>
+        }
     </tbody>
 </table>

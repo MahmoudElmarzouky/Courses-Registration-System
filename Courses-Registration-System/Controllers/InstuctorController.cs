@@ -61,7 +61,7 @@ namespace Courses_Registration_System.Controllers
                 {
                     repository.Update(instructor);
                     return RedirectToAction("Index", "Instuctor");
-                }
+                } 
                 else
                 {
                     return View(instructor);
